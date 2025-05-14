@@ -1,0 +1,36 @@
+@import "../../../app/styles/style.scss";
+
+.homeNews {
+    padding: 20px;
+    background-color: #f9f9f9;
+
+    &_title {
+        font-size: 55px;
+
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: $blue;
+    }
+
+    &_group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    &_btn{
+        background: $blue;
+        color: $white;
+        width: 100%;
+        max-width: 300px;
+        padding: 10px 20px;
+        border-radius: $radius;
+        border: none;
+        cursor: pointer;
+        font-size: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        margin-top: 50px;
+    }
+}

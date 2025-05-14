@@ -1,0 +1,7 @@
+export {Home} from "./home/Home"
+export {About} from "./about/About"
+export {News} from "./news/News"
+export {Admin} from "./admin/Admin"
+export {Project} from "./project/Project"
+export {Gallerys} from "./gallerys/Gallerys"
+export {NewsDeteils} from "./newsDeteil/NewsDeteil"

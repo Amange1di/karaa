@@ -1,0 +1,110 @@
+@import "../../../app/styles/style.scss";
+
+.aboutContent {
+    width: 100%;
+    height: auto;
+    margin-left: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        font-size: 35px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: $blue;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+        font-size: 23px;
+        color: #333;
+        line-height: 1.6;
+        margin-bottom: 24px;
+    }
+
+    &_content {
+        width: 300px;
+        height: 100%;
+    }
+
+    &_gra {
+        width: 100%;
+        height: 100%;
+        max-height: 400px;
+        display: flex;
+        align-items: start;
+        justify-content: center;
+        gap: 30px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        &_title {
+            h4 {
+                font-size: 20px;
+                font-weight: bold;
+                color: $blue;
+            }
+        }
+    }
+
+    .doughnut {
+        width: 290px;
+    }
+
+    &_doughnut_content_texts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    &_doughnut_content_text {
+        display: flex;
+        gap: 5px;
+
+        h2 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        &_block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: $white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            justify-content: space-between;
+        }
+    }
+}
+
+.dg-attribution__links{
+    display: none !important ;
+}
+.dg-attribution__link-item{
+    display: none !important ;
+}
+.dg-attribution__warning-message{
+    display: none !important ;
+}
+.dg-attribution__copyright{
+    display: none !important ;
+    li{
+        display: none !important ;
+    }
+}
+.leaflet-right{
+    display: none !important ;
+}

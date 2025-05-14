@@ -1,0 +1,54 @@
+@import "../../../app/styles/style.scss";
+
+.homeKgPortal {
+    padding: 20px;
+    background-color: #f9f9f9;
+
+    h1 {
+        font-size: 50px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: $blue;
+    }
+
+    &_group {
+        display: flex;
+        justify-content: space-between;
+
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 100%;
+
+        &_portal_item {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            max-width: 400px;
+            background: $blue;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+
+            img {
+                width: 100px;
+                height: 100px;
+                object-fit: contain;
+                margin-bottom: 10px;
+            }
+
+            p {
+                font-size: 15px;
+                margin-left: 10px;
+                font-weight: bold;
+                color: $white;
+            }
+        }
+    }
+}
