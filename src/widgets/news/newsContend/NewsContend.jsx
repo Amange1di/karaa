@@ -1,143 +1,40 @@
-import "./newsContend.scss"
-import news from "../../../shared/images/hero.jpg"
-import { NewsBlock } from "../../../features"
-import { NavLink } from "react-router-dom" // Исправлено имя компонента
-
-const faceNews = [
-
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 1,
-        title: "title",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-
-]
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getNews } from "../../../app/store/reducers/newsPage/newsThunks";
+import { getTitle } from "../../../app/store/reducers/title/titleThunks";
+import "./newsContend.scss";
+import { NewsBlock } from "../../../features";
 
 export const NewsContend = () => {
+    const dispatch = useDispatch();
+    const { news,  } = useSelector((state) => state.newsPage);
+    const title = useSelector(state => state.title.data || {});
+
+    useEffect(() => {
+        dispatch(getNews());
+        dispatch(getTitle());
+    }, [dispatch]);
+
     return (
         <div className="newsContend">
             <div className="container">
+                <h1 className="newsContend_title">{title?.title_news}</h1>
 
-                <h1 className="newsContend_title"> жаңылыктар</h1>
+               
+
                 <div className="newsContend_group">
-                    {faceNews.map(newsItem => (
+                    {Array.isArray(news) && news.slice().reverse().map(newsItem => (
                         <NewsBlock
                             key={newsItem.id}
                             img={newsItem.img}
-                            data={newsItem.data}
+                            data={newsItem.date}
                             title={newsItem.title}
                             description={newsItem.description}
+                            id={newsItem.id}
                         />
                     ))}
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

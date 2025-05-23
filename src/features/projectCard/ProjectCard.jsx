@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import "./projectCard.scss"
 
-export const ProjectCard = ({ img, title, description,data, link }) => {
+export const ProjectCard = ({ img, title, description,data,id }) => {
     return (
         <div className="projectCard">
             <div className="projectCard_img">
@@ -13,7 +13,7 @@ export const ProjectCard = ({ img, title, description,data, link }) => {
                 <p className="projectCard_body_description">{description}</p>
 
                 <div className="projectCard_body_btn">
-                    <NavLink to="project-detail/:id" className="projectCard_body_button">
+                    <NavLink  to={`/project-detail/${id}`} className="projectCard_body_button">
                         Толук маалымат
                     </NavLink>
                 </div>

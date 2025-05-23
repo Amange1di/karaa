@@ -1,74 +1,68 @@
 import "./projectDeteill.scss";
-import img from "../../shared/images/hero.jpg";
-import img2 from "../../shared/images/admin.png";
-import img3 from "../../shared/images/logo.png";
-import { useState } from "react";
-const data = [
-    {
-        id: 1,
-        img: img,
-    },
-    {
-        id: 2,
-        img: img2,
-    },
-    {
-        id: 3,
-        img: img3,
-    },
-    {
-        id: 4,
-        img: img,
-    },
-    {
-        id: 5,
-        img: img3,
-    },
-    {
-        id: 6,
-        img: img,
-    },
-    {
-        id: 7,
-        img: img,
-    },
-    {
-        id: 8,
-        img: img3,
-    },
-];
+import { useEffect, useState } from "react";
+import axios from "../../shared/api/Axios";
 
 export const ProjectDeteill = () => {
-    const [currentImg, setCurrentImg] = useState(img);
+    const [project, setProject] = useState(null);
+    const [currentImg, setCurrentImg] = useState(null);
+
+    useEffect(() => {
+        const id = window.location.pathname.split("/").pop();
+        axios
+            .get(`http://127.0.0.1:8000/projects/projects/${id}`)
+            .then((res) => {
+                setProject(res.data);
+                if (Array.isArray(res.data.imgs) && res.data.imgs.length > 0) {
+                    setCurrentImg(res.data.imgs[0]);
+                } else if (Array.isArray(res.data.img) && res.data.img.length > 0) {
+                    setCurrentImg(res.data.img[0]);
+                } else {
+                    setCurrentImg(res.data.img || "");
+                }
+            })
+            .catch(() => setProject(null));
+    }, []);
 
     const handleImageClick = (newImg) => {
         setCurrentImg(newImg);
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
+    if (!project)
+        return (
+            <div className="projectDeteill">
+                <div className="container">Загрузка...</div>
+            </div>
+        );
+
     return (
         <div className="projectDeteill">
             <div className="container">
                 <div className="projectDeteill_img">
-                    <img src={currentImg} alt="" />
+                    <img src={currentImg} alt={project?.title || ""} />
                 </div>
                 <div className="projectDeteill_text">
-                    <h2>В Бишкеке состоялся семинар по вопросам внедрения системы управления проектами</h2>
-                    <p>В Бишкеке состоялся семинар по вопросам внедрения системы управления проектами в Кыргызской Республике. В мероприятии приняли участие представители государственных органов, международных организаций и эксперты в области управления проектами.</p>
-                    <p>Семинар был организован с целью обмена опытом и лучшими практиками в области управления проектами, а также обсуждения актуальных вопросов и проблем, связанных с внедрением системы управления проектами в Кыргызстане.</p>
-                    <p>Участники семинара обсудили ключевые аспекты внедрения системы управления проектами, включая планирование, реализацию и мониторинг проектов, а также вопросы оценки эффективности и устойчивости проектов.</p>
-                    <p>В ходе семинара были представлены успешные примеры реализации проектов в различных сферах, таких как образование, здравоохранение, инфраструктура и социальное развитие.</p>
-                    <p>Организаторы семинара выразили надежду на дальнейшее сотрудничество между государственными органами и международными организациями в области управления проектами для достижения устойчивого развития Кыргызстана.</p>
+                    <h2>{project?.title}</h2>
+                    <p>{project?.description}</p>
                 </div>
                 <div className="projectDeteill_group">
-                    {data.map((item) => (
-                        <img
-                            key={item.id}
-                            src={item.img}
-                            alt=""
-                            onClick={() => handleImageClick(item.img)}
-                        />
-                    ))}
+                    {Array.isArray(project?.imgs) && project.imgs.length > 0
+                        ? project.imgs.map((imgUrl, idx) => (
+                            <img
+                                key={idx}
+                                src={imgUrl}
+                                alt=""
+                                onClick={() => handleImageClick(imgUrl)}
+                            />
+                        ))
+                        : Array.isArray(project?.img) && project.img.map((imgUrl, idx) => (
+                            <img
+                                key={idx}
+                                src={imgUrl}
+                                alt=""
+                                onClick={() => handleImageClick(imgUrl)}
+                            />
+                        ))}
                 </div>
             </div>
         </div>

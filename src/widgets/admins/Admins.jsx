@@ -1,35 +1,43 @@
 import "./admin.scss"
-import admin from "../../shared/images/admin.png"
-import img from "../../shared/images/hero.jpg"
+import adminImg from "../../shared/images/admin.png"
+import { getTitle } from "../../app/store/reducers/title/titleThunks";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+
 const face = [
   {
     name: "Амангелди Майрамбек уулу",
     position: "Айыл өкмөт башчысы.",
-    image: img,
+    image: adminImg,
   },
   {
     name: "Амангелди Майрамбек уулу",
     position: "Айыл өкмөт башчысы.",
-    image: img,
+    image: adminImg,
   },
   {
     name: "Амангелди Майрамбек уулу",
     position: "Айыл өкмөт башчысы.",
-    image: img,
+    image: adminImg,
   },
 ];
 
 export const Admins = () => {
+  const title = useSelector(state => state.title.data || {});
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTitle());
+  }, [dispatch]);
+
   return (
     <div className="admin">
 
       <div className="container">
         <h1 className="admin_title">
-          АЙЫЛ ӨКМӨТҮН АППАРАТЫНЫН СТРУКТУРАСЫ
+          {title?.title_administration}
         </h1>
         <div className="admin_img">
-
-        <img className="admin_img_st" src={admin} alt="" />
+          <img className="admin_img_st" src={adminImg} alt="" />
         </div>
 
         <div className="admin_grup">

@@ -90,6 +90,29 @@
         &_socials {
             display: flex;
             gap: 15px;
+
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: $white;
+                transition: box-shadow 0.3s, transform 0.3s;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+                &:hover {
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+                    transform: translateY(-2px) scale(1.08);
+                }
+
+                img {
+                    width: 22px;
+                    height: 22px;
+                    object-fit: contain;
+                }
+            }
         }
     }
 

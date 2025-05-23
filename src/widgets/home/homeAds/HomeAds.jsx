@@ -1,105 +1,21 @@
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getAds } from "../../../app/store/reducers/homePage/homeThunks"
 import "./homeAds.scss"
-import news from "../../../shared/images/hero.jpg"
 import { NewsAds } from "../../../features"
-import Slider from "react-slick" 
+import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
-const faceAds = [
-    {
-        id: 1,
-        title: "Ad Title 1",
-        description: "description description",
-        img: news,
-        data: "05.05.2025"
-    },
-    {
-        id: 2,
-        title: "Ad Title 2",
-        description: "description description",
-        img: news,
-        data: "06.05.2025"
-    },
-    {
-        id: 3,
-        title: "Ad Title 3",
-        description: "description description",
-        img: news,
-        data: "07.05.2025"
-    },
-    {
-        id: 2,
-        title: "Ad Title 2",
-        description: "description description",
-        img: news,
-        data: "06.05.2025"
-    },
-    {
-        id: 3,
-        title: "Ad Title 3",
-        description: "description description",
-        img: news,
-        data: "07.05.2025"
-    },
-    {
-        id: 2,
-        title: "Ad Title 2",
-        description: "description description",
-        img: news,
-        data: "06.05.2025"
-    },
-    {
-        id: 3,
-        title: "Ad Title 3",
-        description: "description description",
-        img: news,
-        data: "07.05.2025"
-    },
-    {
-        id: 2,
-        title: "Ad Title 2",
-        description: "description description",
-        img: news,
-        data: "06.05.2025"
-    },
-    {
-        id: 3,
-        title: "Ad Title 3",
-        description: "description description",
-        img: news,
-        data: "07.05.2025"
-    },
-    {
-        id: 2,
-        title: "Ad Title 2",
-        description: "description description",
-        img: news,
-        data: "06.05.2025"
-    },
-    {
-        id: 3,
-        title: "Ad Title 3",
-        description: "description description",
-        img: news,
-        data: "07.05.2025"
-    },
-    {
-        id: 2,
-        title: "Ad Title 2",
-        description: "description description",
-        img: news,
-        data: "06.05.2025"
-    },
-    {
-        id: 3,
-        title: "Ad Title 3",
-        description: "description description",
-        img: news,
-        data: "07.05.2025"
-    },
-]
-
 export const HomeAds = () => {
+    const dispatch = useDispatch();
+    const ads = useSelector(state => state.homePage.ads) || [];
+    const title_ads = useSelector(state => state.homePage.home?.title_ads);
+
+    useEffect(() => {
+        dispatch(getAds());
+    }, [dispatch]);
+
     const sliderSettings = {
         dots: false,
         arrows: false,
@@ -128,14 +44,15 @@ export const HomeAds = () => {
     return (
         <div className="homeAds">
             <div className="container">
-                <h1 className="homeAds_title">Жарыялар</h1>
+                <h1 className="homeAds_title">{title_ads}</h1>
                 <Slider {...sliderSettings} className="homeAds_slider">
-                    {faceAds.map(newsItem => (
+                    {ads.map(newsItem => (
                         <NewsAds
                             key={newsItem.id}
-                            img={newsItem.img}
-                            data={newsItem.data}
+                            img={Array.isArray(newsItem.img) ? newsItem.img[0] : newsItem.img}
+                            data={newsItem.date}
                             title={newsItem.title}
+                            id={newsItem.id}
                             description={newsItem.description}
                         />
                     ))}
