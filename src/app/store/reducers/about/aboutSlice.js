@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getAbout } from "./aboutThunks";
 
 const initialState = {
-    about: null,
+    about: [], // теперь массив для хранения списка
     loading: false,
     error: null,
 };
@@ -14,8 +15,23 @@ const aboutSlice = createSlice({
             state.about = action.payload;
         },
         clearAbout(state) {
-            state.about = null;
+            state.about = [];
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(getAbout.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getAbout.fulfilled, (state, action) => {
+                state.loading = false;
+                state.about = action.payload;
+            })
+            .addCase(getAbout.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
     },
 });
 

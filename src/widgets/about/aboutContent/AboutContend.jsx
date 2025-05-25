@@ -16,7 +16,7 @@ const options = {
     }
 };
 
-export const AboutContend = ({ title, content, pipls, location }) => {
+export const AboutContend = ({ title, content, pipls,all_people,all, location }) => {
     const chartData = useMemo(() => {
         if (!pipls) return null;
         return {
@@ -49,8 +49,8 @@ export const AboutContend = ({ title, content, pipls, location }) => {
             {pipls.length > 0 && (
                 <div className="aboutContent_gra">
                     <div className="aboutContent_gra_title">
-                        <h4>Калк саны</h4>
-                        <h2>18 026</h2>
+                        <h4>{all_people}</h4>
+                        <h2>{all}</h2>
                         {chartData && <div className="doughnut" > <Doughnut data={chartData} options={options} /></div>}</div>
                     <div className="aboutContent_doughnut_content_texts">
                         {pipls.map((item, index) => {
