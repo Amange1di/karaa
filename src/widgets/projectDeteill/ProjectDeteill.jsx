@@ -1,34 +1,36 @@
 import "./projectDeteill.scss";
 import { useEffect, useState } from "react";
-import axios from "../../shared/api/Axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getProjectById } from "../../app/store/reducers/project/projectThunks";
 
 export const ProjectDeteill = () => {
-    const [project, setProject] = useState(null);
+    const dispatch = useDispatch();
+    const project = useSelector(state => state.project.project);
+    const loading = useSelector(state => state.project.loading);
     const [currentImg, setCurrentImg] = useState(null);
 
     useEffect(() => {
         const id = window.location.pathname.split("/").pop();
-        axios
-            .get(`http://127.0.0.1:8000/projects/projects/${id}`)
-            .then((res) => {
-                setProject(res.data);
-                if (Array.isArray(res.data.imgs) && res.data.imgs.length > 0) {
-                    setCurrentImg(res.data.imgs[0]);
-                } else if (Array.isArray(res.data.img) && res.data.img.length > 0) {
-                    setCurrentImg(res.data.img[0]);
+        dispatch(getProjectById(id)).then((action) => {
+            const data = action.payload;
+            if (data) {
+                if (Array.isArray(data.imgs) && data.imgs.length > 0) {
+                    setCurrentImg(data.imgs[0]);
+                } else if (Array.isArray(data.img) && data.img.length > 0) {
+                    setCurrentImg(data.img[0]);
                 } else {
-                    setCurrentImg(res.data.img || "");
+                    setCurrentImg(data.img || "");
                 }
-            })
-            .catch(() => setProject(null));
-    }, []);
+            }
+        });
+    }, [dispatch]);
 
     const handleImageClick = (newImg) => {
         setCurrentImg(newImg);
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
-    if (!project)
+    if (loading || !project)
         return (
             <div className="projectDeteill">
                 <div className="container">Загрузка...</div>

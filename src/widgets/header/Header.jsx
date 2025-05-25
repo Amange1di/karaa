@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getHeder } from "../../app/store/reducers/heder/hederThunks";
+import { refreshAllData } from "../../shared/utils/refreshAllData";
 import logo from "../../shared/images/gerb.svg";
 
 export const Header = () => {
@@ -19,7 +20,9 @@ export const Header = () => {
 
   // Обработчик смены языка
   const handleChangeLanguage = (e) => {
-    i18n.changeLanguage(e.target.value);
+    i18n.changeLanguage(e.target.value).then(() => {
+      refreshAllData(dispatch);
+    });
   };
 
   return (

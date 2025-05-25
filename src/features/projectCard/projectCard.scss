@@ -13,7 +13,8 @@
 
   &_img {
     flex: 0 0 49%;
-
+min-height: 500px;
+max-height: 500px;
     img {
       width: 100%;
       height: 100%;

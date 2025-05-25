@@ -1,0 +1,47 @@
+.a404 {
+  min-height: 80vh;
+  background: url("../../shared/images/image.png") no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 2rem;
+
+  .container {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    max-width: 600px;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 6rem;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+
+  .btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.5rem;
+    background-color: #fff;
+    color: #000;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}

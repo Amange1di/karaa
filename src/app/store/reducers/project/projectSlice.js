@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProject } from "./projectThunks"; 
+import { getProject, getProjectById } from "./projectThunks";
 
 const initialState = {
     project: null,
@@ -26,6 +26,18 @@ const projectSlice = createSlice({
                 state.project = action.payload;
             })
             .addCase(getProject.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload || "Ошибка загрузки";
+            })
+            .addCase(getProjectById.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getProjectById.fulfilled, (state, action) => {
+                state.loading = false;
+                state.project = action.payload;
+            })
+            .addCase(getProjectById.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload || "Ошибка загрузки";
             });

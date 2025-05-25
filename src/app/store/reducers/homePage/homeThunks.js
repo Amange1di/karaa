@@ -3,7 +3,7 @@ import axios from "../../../../shared/api/Axios";
 
 export const getHome = createAsyncThunk("home/getHome", async (_, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get("home/home");
+    const { data } = await axios.get("home");
     return data;
   } catch (e) {
     return rejectWithValue(e.message || "Ошибка загрузки новостей");

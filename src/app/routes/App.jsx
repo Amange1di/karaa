@@ -3,7 +3,7 @@ import '../styles/App.scss';
 import "../styles/style.scss";
 import { Header } from '../../widgets/header/Header';
 import { useEffect } from 'react';
-import { About, Admin, Home, Gallerys, News, Project, NewsDeteils } from '../../pages';
+import { About, Admin, Home, Gallerys, News, Project, NewsDeteils,A404 } from '../../pages';
 import { Footer } from '../../widgets/footer/Footer';
 import { Ads, ProjectDeteill, Scroll } from '../../widgets';
 
@@ -27,6 +27,11 @@ const routesArr = [
     path: "/ads-detail/:id",
     element: <Ads />,
   },
+  {
+    path: "*",
+    element: <A404 />,
+  },
+
 ];
 
 const App = () => {
