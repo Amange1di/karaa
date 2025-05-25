@@ -4,11 +4,15 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
-import axios from "axios"
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { getNews } from "../../../app/store/reducers/newsPage/newsThunks"
+
 export const NewsDeteil = () => {
     const { id } = useParams();
-    const [news, setNews] = useState(null);
+    const dispatch = useDispatch();
+    const { news, loading, error } = useSelector(state => state.newsPage);
+    const newsItem = news.find(n => String(n.id) === String(id));
     const sliderSettings = {
         dots: false,
         arrows: false,
@@ -21,18 +25,15 @@ export const NewsDeteil = () => {
     }
 
     useEffect(() => {
-        if (id) {
-            axios.get(`http://127.0.0.1:8000/news/news/${id}/`)
-                .then(res => setNews(res.data))
-                .catch(() => setNews(null));
+        if (!newsItem) {
+            dispatch(getNews());
         }
-    }, [id]);
+    }, [dispatch, newsItem]);
 
-    if (!news) return <div>Загрузка...</div>;
-
+    if (loading || !newsItem) return <div>Загрузка...</div>;
+    if (error) return <div style={{ color: 'red' }}>Ошибка: {error}</div>;
 
     return (
-
         <div className="newsDeteil">
             <div className="container">
                 <Slider {...sliderSettings} className="newsDeteil_slider">
@@ -46,15 +47,13 @@ export const NewsDeteil = () => {
                         <img src={img} alt="" />
                     </div>
                 </Slider>
-
                 <div className="newsDeteil_text">
-                    <h3>{news.date || "-"}</h3>
-                    <h2>{news.title || "-"}</h2>
-                    <p>{news.description || "-"}</p>
-                    {news.content && Array.isArray(news.content) && news.content.map((p, i) => <p key={i}>{p}</p>)}
+                    <h3>{newsItem.date || "-"}</h3>
+                    <h2>{newsItem.title || "-"}</h2>
+                    <p>{newsItem.description || "-"}</p>
+                    {newsItem.content && Array.isArray(newsItem.content) && newsItem.content.map((p, i) => <p key={i}>{p}</p>)}
                 </div>
             </div>
-
         </div>
     )
 }
